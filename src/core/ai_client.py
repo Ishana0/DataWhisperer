@@ -12,6 +12,7 @@ class GroqAI:
         self,
         messages: List[Dict[str, str]],
         model: str,
+        # Temperature parameter controls randomness in output
         temperature: float = 0.2,
         top_p: float = 1.0,
         max_tokens: int = 256,
@@ -26,7 +27,7 @@ class GroqAI:
             resp = self.client.chat.completions.create(
                 model=model,
                 messages=messages,
-                temperature=temperature,
+                temperature=temperature, # Using the temperature parameter
                 top_p=top_p,
                 max_tokens=max_tokens,
                 stop=stop,
