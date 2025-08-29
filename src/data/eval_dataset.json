@@ -1,0 +1,22 @@
+[
+    {
+        "question": "List orders with amount greater than 200",
+        "expected_sql": "SELECT * FROM orders WHERE amount > 200;"
+    },
+    {
+        "question": "Get product names where stock is less than 10",
+        "expected_sql": "SELECT name FROM products WHERE stock < 10;"
+    },
+    {
+        "question": "Show all customers created after 2024-01-01",
+        "expected_sql": "SELECT * FROM customers WHERE date(created_at) > date('2024-01-01');"
+    },
+    {
+        "question": "Count total orders",
+        "expected_sql": "SELECT COUNT(*) AS total_orders FROM orders;"
+    },
+    {
+        "question": "Total amount per customer (id and sum)",
+        "expected_sql": "SELECT customer_id, SUM(amount) AS total_amount FROM orders GROUP BY customer_id;"
+    }
+]
