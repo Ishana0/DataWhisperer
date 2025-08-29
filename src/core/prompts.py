@@ -1,6 +1,6 @@
 from typing import List, Dict, Optional
 
-# Base system prompt with rules for clean SQL
+
 SYSTEM_PROMPT = """
 You are an intelligent SQL generator.
 - Output ONLY SQL (PostgreSQL/SQLite compatible).
@@ -16,6 +16,7 @@ def _system_msg(schema_text: str) -> Dict[str, str]:
 
 def _user_q_prompt(user_query: str) -> str:
     return f"Question: {user_query}\nSQL:"
+
 
 def build_zero_shot_prompt(user_query: str, schema_text: str, stop_sequences: Optional[list] = None) -> List[Dict[str, str]]:
     return [
@@ -34,6 +35,7 @@ def build_one_shot_prompt(user_query: str, schema_text: str, stop_sequences: Opt
         {"role": "user", "content": example},
         {"role": "user", "content": _user_q_prompt(user_query)},
     ]
+
 
 def build_few_shot_prompt(user_query: str, schema_text: str, stop_sequences: Optional[list] = None) -> List[Dict[str, str]]:
     examples = (
