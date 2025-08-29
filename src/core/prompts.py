@@ -22,3 +22,15 @@ def build_zero_shot_prompt(user_query: str, schema_text: str, stop_sequences: Op
         _system_msg(schema_text),
         {"role": "user", "content": _user_q_prompt(user_query)},
     ]
+
+
+def build_one_shot_prompt(user_query: str, schema_text: str, stop_sequences: Optional[list] = None) -> List[Dict[str, str]]:
+    example = (
+        "Question: List all customers created in the last 30 days\n"
+        "SQL: SELECT * FROM customers WHERE date(created_at) >= date('now','-30 day');"
+    )
+    return [
+        _system_msg(schema_text),
+        {"role": "user", "content": example},
+        {"role": "user", "content": _user_q_prompt(user_query)},
+    ]
