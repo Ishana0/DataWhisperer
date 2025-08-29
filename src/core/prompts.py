@@ -1,0 +1,24 @@
+from typing import List, Dict, Optional
+
+# Base system prompt with rules for clean SQL
+SYSTEM_PROMPT = """
+You are an intelligent SQL generator.
+- Output ONLY SQL (PostgreSQL/SQLite compatible).
+- Do NOT include explanations or backticks.
+- Use only the columns and tables from the provided schema.
+- Prefer ISO date strings for comparisons when needed.
+"""
+
+
+def _system_msg(schema_text: str) -> Dict[str, str]:
+    return {"role": "system", "content": SYSTEM_PROMPT.strip() + "\n\n" + schema_text.strip()}
+
+
+def _user_q_prompt(user_query: str) -> str:
+    return f"Question: {user_query}\nSQL:"
+
+def build_zero_shot_prompt(user_query: str, schema_text: str, stop_sequences: Optional[list] = None) -> List[Dict[str, str]]:
+    return [
+        _system_msg(schema_text),
+        {"role": "user", "content": _user_q_prompt(user_query)},
+    ]
