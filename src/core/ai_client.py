@@ -16,6 +16,7 @@ class GroqAI:
         temperature: float = 0.2,
         top_p: float = 1.0,
         max_tokens: int = 256,
+        # Stop sequences for the model to stop generating further tokens
         stop: Optional[list] = None,
     ) -> Tuple[str, dict, Optional[str]]:
         
@@ -30,7 +31,7 @@ class GroqAI:
                 temperature=temperature, # Using the temperature parameter
                 top_p=top_p,
                 max_tokens=max_tokens,
-                stop=stop,
+                stop=stop, #Passing stop sequences if any
             )
             text = resp.choices[0].message.content or ""
             usage = getattr(resp, "usage", {}) or {}
