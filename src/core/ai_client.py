@@ -2,25 +2,12 @@ import os
 from typing import List, Dict, Optional, Tuple
 from groq import Groq
 
-
 class GroqAI:
     def __init__(self):
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
             raise ValueError("GROQ_API_KEY not found in environment.")
         self.client = Groq(api_key=api_key)
-
-
-
-
-
-
-
-
-
-
-
-
     def chat(
         self,
         messages: List[Dict[str, str]],
@@ -31,22 +18,10 @@ class GroqAI:
         stop: Optional[list] = None,
     ) -> Tuple[str, dict, Optional[str]]:
         
-
-
-
-
-
-
         """
         Returns (text, usage_dict, error_str)
         """
-
-
-
-
-
-
-
+        
         try:
             resp = self.client.chat.completions.create(
                 model=model,
